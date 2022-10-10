@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
 
 mongoose.connect('mongodb+srv://Thanystos:Devilplop0@coursocnodeexpressmongo.2cvjeus.mongodb.net/?retryWrites=true&w=majority',
 { useNewUrlParser: true,
@@ -24,5 +25,6 @@ app.use(express.json()); // Permet d'intercepter toute réponse json envoyée
 // app.use(bodyParser.json());  Voir const bodyParser
 
 app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
