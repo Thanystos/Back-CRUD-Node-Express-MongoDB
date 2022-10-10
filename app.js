@@ -1,6 +1,7 @@
 const express = require('express');
-
 const mongoose = require('mongoose');
+
+const Thing = require('./models/Thing');
 
 const app = express();
 
@@ -21,10 +22,13 @@ app.use((req, res, next) => {
 });
 
 app.post('/api/stuff', (req, res, next) => {
-    console.log(req.body); // Possible grâce à la ligne 5
-    res.status(201).json({
-        message: 'objet créé'
+    delete req.body._id;
+    const thing = new Thing({
+        ...req.body  // copie tous les champs du corps de la requête pour créer noter Thing
     });
+    thing.save()
+      .then(() => res.status(201).json({ message: 'objet enregistré' }))
+      .catch(error => res.status(400).json( { error }));
 });
 
 app.get('/api/stuff', (req, res, next) => {
