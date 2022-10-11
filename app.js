@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
 
+const path = require('path');
+
 mongoose.connect('mongodb+srv://Thanystos:Devilplop0@coursocnodeexpressmongo.2cvjeus.mongodb.net/?retryWrites=true&w=majority',
 { useNewUrlParser: true,
   useUnifiedTopology: true
@@ -26,5 +28,6 @@ app.use(express.json()); // Permet d'intercepter toute réponse json envoyée
 
 app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
